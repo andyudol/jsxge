@@ -1,0 +1,27 @@
+/*
+*/
+body {
+	background-color : #000000;
+}
+
+div.page {
+	position : absolute;
+	width : 60%;
+	height : 92%;
+	/*text-align : center;*/
+	background-color : #ffffff;
+	margin-top : 1%;
+	margin-left : 20%;
+	margin-right : 20%;
+	margin-bottom : 1%;
+	padding : 2%;
+}
+
+h1 {
+	text-align : center;
+}
+
+.jxgbox {
+	width  : 600px;
+	height : 300px;
+}

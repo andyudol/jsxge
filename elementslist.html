@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Список элементов</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.97/jsxgraphcore.js"></script>
+	<script language="javascript" src='http://code.jquery.com/jquery-1.10.1.min.js'></script>
+	<script language="javascript" src='http://code.jquery.com/ui/1.10.3/jquery-ui.min.js'></script>
+
+	<link rel="stylesheet" href='http://code.jquery.com/ui/1.10.3/themes/flick/jquery-ui.css' media="all" />
+	<link rel="stylesheet" href='css/styles.css' media="all" />
+</head>
+<body>
+	<div class="page" style="float:left; overflow: auto;">
+	<h1>Геометрические элементы</h1>
+	<p id="gelist"></p>
+
+<script type="text/javascript">
+    /* <![CDATA[ */
+
+    (function () {
+        var i;
+
+        for (i in JXG.elements) {
+            if (JXG.elements.hasOwnProperty(i)) {
+                $('<a href="#">' + i + '</a>' + '<br />').on ('click', function (e) {
+					var d = $('<div id="dialog"></div>').appendTo('body').dialog({
+						position: "center",
+						width: 800,
+						height: 500,
+						modal: true,
+						buttons: [{
+							text: "OK",
+							click: function() {
+								$( this ).dialog( "destroy" );
+								$('#dialog').remove();
+							}
+						}]
+					});
+					$('<div id="jxgbox" class="jxgbox"></div>').appendTo(d);
+					window.board = JXG.JSXGraph.initBoard ( 'jxgbox', {
+						"originX" : 200,
+						"originY" : 200,
+						"unitX" : 40,
+						"unitY" : 40,
+						"axis" : true,
+						"grid" : true,
+						"showNavigation" : false,
+						"showCopyright" : false
+					} );
+					$.getScript('elements/' + $(e.target).text() + '.js');
+				}).appendTo('#gelist');
+            }
+        }
+    })();
+
+    /* ]]> */
+</script>
+
+	</div>
+</body>
+</html>
