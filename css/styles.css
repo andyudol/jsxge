@@ -17,6 +17,17 @@ div.page {
 	padding : 2%;
 }
 
+#lesson {
+	position : absolute;
+	top  : 50px;
+	left : 50px;
+	width  : 700px;
+	height : 450px;
+	z-index : 0;
+	margin : 0px 0px 0px 0px;
+	background : #ffffff;
+}
+
 h1 {
 	text-align : center;
 }

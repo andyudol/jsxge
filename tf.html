@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Геометрия</title>
+	<meta name="author" content="Unknown" >
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<link rel="stylesheet" href='css/styles.css' media="all" />
+
+	<link rel="stylesheet" href='http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css' media="all" />
+	<script language="javascript" src='http://jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js'></script>
+
+</head>
+<body>
+	<div id="lesson" class="jxgbox"></div>
+</body>
+<script language="javascript">
+	var	board = JXG.JSXGraph.initBoard ( 'lesson', {originX: 350, originY: 225, unitX: 1, unitY: 1, axis : true, grid : false, showNavigation : false, showCopyright : false} )
+	,	t = board.create('turtle');
+	t.cs();
+
+	function numberGenerate () {
+		var n=[];
+		for (var i=0; i<4; i++) { n[i]=Math.round(1000*Math.random())%20+1 };
+		return n;
+	};
+
+	function drawScetch () {
+		var	step = 10
+		,	top = numberGenerate ()[0]*step+20 //210
+		,	right = numberGenerate ()[1]*step+160 //230
+		,	bottom = -numberGenerate ()[2]*step-20 //200
+		,	left = -numberGenerate ()[3]*step-160 //210
+		,	attr = {fixed : true}
+		,	p1 = board.create('point', [left,top], attr)
+		,	p2 = board.create('point', [right,top], attr)
+		,	p3 = board.create('point', [right,bottom], attr)
+		,	p4 = board.create('point', [left,bottom], attr)
+		,	pg = board.create('polygon', [p1, p2, p3, p4, p1])
+		,	kX
+		,	kY
+		,	nextPos
+		,	pen = true;
+
+		t.setPos(p1.X(), p1.Y()).lookTo(-45).ht();
+		var I = setInterval  (function () {
+			if (pen) {t.pd()} else {t.pu()};
+			//if (t.X()===left) {kX=1};
+			switch (t.X()) {
+				case left : kX= 1; break;
+				case right: kX=-1; break;
+			};
+			//if (t.Y()===top) {kY=-1};
+			switch (t.Y()) {
+				case top   : kY=-1; break;
+				case bottom: kY= 1; break;
+			};
+			nextPos = [t.X() + step*kX, t.Y() + step*kY];
+			//t.fd(150);
+			//alert (t.X());
+			t.moveTo(nextPos);
+			//alert (t.X());
+			pen = !pen;
+			if ( (t.X()===left || t.X()===right) && (t.Y()===top || t.Y()===bottom) ) {
+				clearInterval(I);
+				board.on('mousedown', function ( event ) {
+					JXG.JSXGraph.freeBoard ( board );
+					board = JXG.JSXGraph.initBoard ( 'lesson', {originX: 350, originY: 225, unitX: 1, unitY: 1, axis : true, grid : false, showNavigation : false, showCopyright : false} );
+					t = board.create('turtle');
+					t.cs();
+					drawScetch ();
+				});
+			};
+		}, 50);
+	};
+	drawScetch ();
+</script>
+</html>
+
+
+
+//2 	3 	5 	7 	11 	13 	17 	19 	23 	29 	31 	37 	41 	43 	47 	53 	59 	61 	67 	71 	73 	79 	83 	89 	97 	101 	103 	107 	109 	113 	127 	131 	137 	139 	149 	151 	157 	163 	167 	173 	179 	181 	191 	193 	197 	199 	211 	223 	227 	229 	233 	239 	241 	251 	257 	263 	269 	271 	277 	281 	283 	293 	307 	311 	313 	317 	331 	337 	347 	349
